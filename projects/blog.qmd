@@ -1,0 +1,87 @@
+*SQL Basics for understanding*
+
+SQL can be an easy language to learn, but sometimes it’s hard to understand because so much happens “under the hood,” unlike Python or R. I’ll briefly explain some of the basic commands and how they affect datasets.
+
+**Rows and columns**
+Data in SQL is organized into rows and columns. The command to choose something is `SELECT`, and it chooses columns by their names. The rows you want can then be filtered later in the command to match your intended group.
+
+For example, let’s say we had three columns named `"movie_title", "movie_rating",` and `"death_in_the_movie"` in a dataset called `Movie_Magic`. If we wanted to see the movie titles in our database, the command would look like this:
+
+```sql
+SELECT "movie_title" FROM Movie_Magic
+
+```
+![colums are vertical]pic_2
+
+
+This would remove the other columns (`"movie_rating"` and `"death_in_the_movie"`) from showing up, which saves processing. That’s nice, but not always helpful. Let’s say we also want the ratings. Our command would look very similar, but with two column names separated by a comma:
+
+```sql
+SELECT "movie_title", "movie_rating" FROM Movie_Magic
+```
+
+This would show only movie titles and their ratings side by side.
+
+Now let’s say we want only the “good” movies — the ones that scored at least 3 out of 5 stars.
+
+This means we’re moving from column selection to row selection. After our previous code, we’d add the `WHERE` command followed by the column we’re filtering by (`"movie_rating"`) and then the condition we want, like this:
+
+ ```sql
+SELECT "movie_titles", "movie_ratings" FROM Movie_Magic 
+WHERE "movie_ratigns" >=3 
+ ```
+![hilited sections would be selected]pick_3
+
+**In Short**
+ - Items between SELECT and FROM are columns.
+ - Conditions after WHERE are row filters.
+
+The R equivalent of the commands we have discussed would look like the following:
+`````r
+library(dplyr)
+
+Movie_Magic %>%
+  select(movie_title)
+
+```
+```r
+Movie_Magic %>%
+  select(movie_title, movie_rating)
+
+```
+```r
+Movie_Magic %>%
+  select(movie_title, movie_rating) %>%
+  filter(movie_rating >= 3)
+
+```
+
+The R code does much the same thing as the SQL commands, but it’s much easier to read the code in SQL, and SQL is so easy to learn that many companies use it rather than R despite how versatile R can be. The benefit of using R, though, is how compact the code is. It doesn’t really get any longer while the SQL code does.
+
+Python code looks much the same but requires a package to be imported beforehand (I prefer pandas) or it gets kind of out of hand very quickly.
+
+```python
+import pandas as pd
+
+# assume Movie_Magic is already a DataFrame
+Movie_Magic[["movie_title"]]
+
+```
+
+```python
+Movie_Magic[["movie_title", "movie_rating"]]
+
+```
+
+```python
+Movie_Magic[["movie_title", "movie_rating"]][Movie_Magic["movie_rating"] >= 3]
+
+```
+mMuch like R, it doesn’t take up much room, but it’s not very intuitive.
+
+Comparatively, SQL is the easiest and most beginner-friendly analysis language of the three, but it is also more limited than the others. R is the most versatile, and Python can keep up if needed, but it doesn’t really compete in any meaningful way outside of interfacing with other languages very well.
+
+**which to Use**
+While all have their strengths, if you’re reading this for information, your company is probably either small or older, and SQL would be the easiest to learn and would have the advantage for that. However, if you are going to do a lot of analysis and some complex calculations, it might be best for you to bite the bullet now and learn R. Python is one of the most common beginner languages for coding, so it’s not uncommon for companies to use it, but it’s not a particularly effective analysis language.
+
+R comes out on top for my list, with SQL in second place. The reason being that R is more powerful, but SQL is easier and doesn’t lose much if you have relatively simple analysis to do.
